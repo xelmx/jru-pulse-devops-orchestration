@@ -1,4 +1,3 @@
-# YAML version, will tell the docker compose which features and syntax rules to us
 # version: '3.8'
 
 # Application Components
