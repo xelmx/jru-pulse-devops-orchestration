@@ -7,7 +7,7 @@ The goal of this project was to transition the entire multi-service application 
 
 # Architecture: Docker COmpose Design
 PHP Web App (8080) <-> Network <-> Python API (80) <-> Network <-> MySQL DB
-![Alt Text for the image](/images/Docker%20Compose%20Up.png)
+![Alt Text for the image](/images/JRU-PULSE%20-%20Docker%20Composer%20-%20System%20Archi.png)
 
 # DevOps SKill Demonstrated
 
