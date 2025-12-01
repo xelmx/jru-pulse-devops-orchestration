@@ -1,15 +1,15 @@
 # JRU-PULSE: DevOps Orchestration and Containerization
 
-### Overview
+## Overview
 This repository showcases the Infrastructure as Code (IaC) and container orchestration for JRU-PULSE, an intelligent Survey & Analytics Platform built on a polyglot microservices architecture.
 
 The goal of this project was to transition the entire multi-service application from a manually configured VPS setup to a fully reproducible, Docker-orchestrated environment.
 
-# Architecture: Docker COmpose Design
+## Architecture: Docker COmpose Design
 PHP Web App (8080) <-> Network <-> Python API (80) <-> Network <-> MySQL DB
 ![Alt Text for the image](/images/JRU-PULSE%20-%20Docker%20Composer%20-%20System%20Archi.png)
 
-# DevOps SKill Demonstrated
+## DevOps SKill Demonstrated
 
 - **Service Orchestration:** Deployed a functional, three-tier, polygot application stack (PHP, Python, MySQL) using a single, declarative **docker-composer.yml** file, adhering to the principle of Infrastucture as Code (IaC).
 
@@ -23,7 +23,7 @@ PHP Web App (8080) <-> Network <-> Python API (80) <-> Network <-> MySQL DB
 
 - **Practical Troubleshooting (Debugging):** Identified and fixed real-world errors (like port mismatches, PHP code initialization bugs, and external service connection failures) by relying on logs and the Docker command line, demonstrating strong debugging capability.
 
-# Deployment (IaC) 
+## Deployment (IaC) 
 
 The entire JRU-PULSE stack is defined in the single docker-compose.yml file below, enabling a complete, reproducible deployment using standard Docker commands.
 
@@ -41,3 +41,7 @@ Steps:
         ![Alt Text for the image](images/Docker%20Compose%20Up.png)
 
 4. Access the Application: The PHP Web App is accessible at http://localhost:8080.
+
+
+
+--Please see **docker-compose.yml** for the full IaC.
