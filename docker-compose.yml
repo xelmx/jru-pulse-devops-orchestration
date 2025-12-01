@@ -66,7 +66,7 @@ services:
 
     ports:
       - "8080:80"
-
+    
     environment:
       MYSQL_HOST: mysql-db
       MYSQL_DATABASE: jru_pulse

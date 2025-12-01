@@ -38,10 +38,14 @@ Steps:
 
 3. Start the entire stack (PHP Web App, Python API, MySQL DB):
         `sudo docker compose up -d`
-        ![Alt Text for the image](images/Docker%20Compose%20Up.png)
+![Alt Text for the image](images/Docker%20compose%20up%20&%20p.png)
 
 4. Access the Application: The PHP Web App is accessible at http://localhost:8080.
+![Alt Text for the image](images/Localhost%208080.png)
 
+
+5. Internal Communication Check:Verified the PHP Web App could successfully send a POST request to the http://python-api:80/analyze endpoint.
+![Alt Text for the image](images/Python-api-endpoint,.png)
 
 
 --Please see **docker-compose.yml** for the full IaC.
