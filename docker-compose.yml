@@ -1,0 +1,81 @@
+# YAML version, will tell the docker compose which features and syntax rules to us
+# version: '3.8'
+
+# Application Components
+
+# -- Network and Volume Data
+networks:
+  jru-pulse-net:
+    driver: bridge
+
+volumes:
+  db-data: 
+  
+services:
+
+  # Python Microservice (NLP), Service name 1
+  python-api:
+    # Tells the Docker Compose not to pull image, but to go to ./python-api dir and run the Dockerfile it finds there to build the image.
+    build: 
+      context: ./python-api
+
+    # Give the container a clearn and memorable name
+    container_name: jru-pulse_python-api
+    
+    # FastAPI in containers port 8000. Maps the host machine's port 8000 to the container's port 8000. Host Port : Container Port.
+    ports:
+      - "8000:80"
+    
+    # Tells Compose to try to start the mysql-db service before the python-api service. Startup order
+    depends_on:
+      - mysql-db
+    
+    # assigns the service to the private network, allowing internal communication.
+    networks:
+      - jru-pulse-net
+
+  
+  # MySQL Database service
+  mysql-db:
+    image: mysql:8.0
+
+    container_name: jru-pulse_mysql-db
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} #hide
+      MYSQL_DATABASE: jru_pulse
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    
+    env_file:
+      - .env
+
+    volumes:
+      - db-data:/var/lib/mysql #Persistent storage for data
+      - ./mysql-db/jru_pulse.sql:/docker-entrypoint-initdb.d/jru_pulse.sql # Initial data to load
+    
+    networks:
+      - jru-pulse-net
+
+  php-web-app:
+    build:
+      context: ./web-app
+    container_name: jru-pulse_php-webapp
+
+    ports:
+      - "8080:80"
+
+    environment:
+      MYSQL_HOST: mysql-db
+      MYSQL_DATABASE: jru_pulse
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: Jru@2025
+      AI_PYTHON_API: python-api
+
+    depends_on:
+      - mysql-db
+      - python-api
+    
+    networks:
+      - jru-pulse-net
+
