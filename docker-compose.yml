@@ -12,7 +12,7 @@ volumes:
   
 services:
 
-  # Python Microservice (NLP), Service name 1
+  # Service 1: Python Microservice (NLP)
   python-api:
     # Tells the Docker Compose not to pull image, but to go to ./python-api dir and run the Dockerfile it finds there to build the image.
     build: 
@@ -34,7 +34,7 @@ services:
       - jru-pulse-net
 
   
-  # MySQL Database service
+  # Service 2: MySQL Database
   mysql-db:
     image: mysql:8.0
 
@@ -56,9 +56,12 @@ services:
     networks:
       - jru-pulse-net
 
+  # Service 3: PHP Web Application
   php-web-app:
+    
     build:
       context: ./web-app
+    
     container_name: jru-pulse_php-webapp
 
     ports:
