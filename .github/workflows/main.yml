@@ -62,8 +62,8 @@ jobs:
       - name: Build and Push PHP Web App Image
         uses: docker/build-push-action@v5
         with:
-          context: ./php-web-app # Path to the Dockerfile directory
-          file: ./php-web-app/Dockerfile  # Path to the Dockerfile
+          context: ./web-app # Path to the Dockerfile directory
+          file: ./web-app/Dockerfile  # Path to the Dockerfile
           push: true # Push to Docker Hub
 
           tags: |
