@@ -69,3 +69,17 @@ jobs:
           tags: |
             rlyleearl/jru-pulse-web-app:latest
             rlyleearl/jru-pulse-web-app:${{ github.sha }}
+
+# Parellel Execution of Jobs
+  deploy-verification:
+    runs-on: ubuntu-latest
+
+    # Will run after both build jobs are complete
+    needs: [build-python-api, build-web-app]
+    
+    steps:
+      - name: Report Deployment Sucess
+        run: |
+          echo "All JRU-PULSE Docker images have been built and pushed successfully!"
+          echo "Build Tag: ${{ github.sha }}"
+          echo "Ready for deployment"
