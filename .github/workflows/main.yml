@@ -1,0 +1,11 @@
+#
+name: JRU-PULSE CI/CD Pipeline
+
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-python-api:
+    runs-on: ubuntu-latest
