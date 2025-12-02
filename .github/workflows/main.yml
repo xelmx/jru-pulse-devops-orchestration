@@ -40,7 +40,7 @@ jobs:
             rlyleearl/jru-pulse-python-api:${{ github.sha }}
     
 # Job 2: PHP-web-app
-  build-php-web-app:
+  build-web-app:
     runs-on: ubuntu-latest
 
     steps:
@@ -55,8 +55,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # Set up Docker Build Environment
-      - name: Set up DOcker Buildx
-        uses: docker/setup-build-action@v3    
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3    
 
       # Build and Tag the PHP-web-app Docker Images
       - name: Build and Push PHP Web App Image
@@ -67,5 +67,5 @@ jobs:
           push: true # Push to Docker Hub
 
           tags: |
-            rlyleearl/jru-pulse-php-web-app:latest
-            rlyleearl/jru-pulse-php-web-app:${{ github.sha }}
+            rlyleearl/jru-pulse-web-app:latest
+            rlyleearl/jru-pulse-web-app:${{ github.sha }}
