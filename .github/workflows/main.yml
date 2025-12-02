@@ -6,7 +6,7 @@ on:
   push:
     branches: [main]
 
-# Python-api Build Job, First Task to build the python-api image
+# Job 1: Python-api, First Task to build the python-api image
 jobs:
   build-python-api:
     runs-on: ubuntu-latest
@@ -38,4 +38,34 @@ jobs:
             rlyleearl/jru-pulse-python-api:latest
             rlyleearl/jru-pulse-python-api:${{ github.sha }}
     
+# Job 2: PHP-web-app
+jobs:
+  build-php-web-app:
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout Code # Checkout the code from th repo
+        uses: actions/checkout@v4
+
+        # Login to my DOcker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Set up Docker Build Environment
+      - name: Set up DOcker Buildx
+        uses: docker/setup-build-action@v3
+      
+      # Build and Tag the PHP-web-app Docker Images
+      - name: Build and Push PHP Web App Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./php-web-app # Path to the Dockerfile directory
+          file: ./php-web-app/Dockerfile  # Path to the Dockerfile
+          push: true # Push to Docker Hub
+
+          tags: |
+            rlyleearl/jru-pulse-php-web-app:latest
+            rlyleearl/jru-pulse-php-web-app:${{ github.sha }}
