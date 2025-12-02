@@ -36,6 +36,6 @@ jobs:
 
           tags: |
             rlyleearl/jru-pulse-python-api:latest
-            rlyleearl/jru-pulse-python-api:${{ github.sha }} # Tag with the commit SHA for versioning
+            rlyleearl/jru-pulse-python-api:${{ github.sha }}
     
 
