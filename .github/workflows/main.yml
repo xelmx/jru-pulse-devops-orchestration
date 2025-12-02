@@ -1,4 +1,4 @@
-#
+#  RU-PULSE CI/CD Pipeline
 name: JRU-PULSE CI/CD Pipeline
 
 # Run the Trigger Event on push to main branch
@@ -6,8 +6,9 @@ on:
   push:
     branches: [main]
 
-# Job 1: Python-api, First Task to build the python-api image
+# Jobs Section
 jobs:
+  # Job 1: Python-api, First Task to build the python-api image
   build-python-api:
     runs-on: ubuntu-latest
 
@@ -39,7 +40,6 @@ jobs:
             rlyleearl/jru-pulse-python-api:${{ github.sha }}
     
 # Job 2: PHP-web-app
-jobs:
   build-php-web-app:
     runs-on: ubuntu-latest
 
@@ -56,8 +56,8 @@ jobs:
 
       # Set up Docker Build Environment
       - name: Set up DOcker Buildx
-        uses: docker/setup-build-action@v3
-      
+        uses: docker/setup-build-action@v3    
+
       # Build and Tag the PHP-web-app Docker Images
       - name: Build and Push PHP Web App Image
         uses: docker/build-push-action@v5
