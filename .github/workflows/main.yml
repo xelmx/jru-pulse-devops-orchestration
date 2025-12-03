@@ -82,4 +82,4 @@ jobs:
         run: |
           echo "All JRU-PULSE Docker images have been built and pushed successfully!"
           echo "Build Tag: ${{ github.sha }}"
-          echo "Ready for deployment"
+          echo "Ready for deployment!"
