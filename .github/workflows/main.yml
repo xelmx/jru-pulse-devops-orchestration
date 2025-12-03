@@ -17,11 +17,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Run Hadolin on all Dockerfiles
+      - name: Run Hadolint on all Dockerfiles
         uses: reviewdog/action-hadolint@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
-          fail_level: true
+          fail_level: error
 
 
   # Job 1: Python-api, First Task to build the python-api image
