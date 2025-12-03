@@ -4,13 +4,31 @@ name: JRU-PULSE CI/CD Pipeline
 # Run the Trigger Event on push to main branch
 on:
   push:
-    branches: [main]
+    tags:
+      - 'v*' # Trigger on version tags v1.0, v2.1, etc.
 
 # Jobs Section
 jobs:
+  # Security Scan Job and Linting
+  scan-dockerfiles:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Hadolin on all Dockerfiles
+        uses: reviewdog/action-hadolint@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN}}
+          fail_level: true
+
+
   # Job 1: Python-api, First Task to build the python-api image
   build-python-api:
     runs-on: ubuntu-latest
+
+    needs: scan-dockerfiles # Waits for the scan job to finish
 
     steps:
       - name: Checkout Code # Checkout the code from the repo
@@ -43,6 +61,8 @@ jobs:
   build-web-app:
     runs-on: ubuntu-latest
 
+    needs: scan-dockerfiles # Waits for the scan job to finish
+
     steps:
       - name: Checkout Code # Checkout the code from th repo
         uses: actions/checkout@v4
@@ -68,7 +88,7 @@ jobs:
 
           tags: |
             rlyleearl/jru-pulse-web-app:latest
-            rlyleearl/jru-pulse-web-app:${{ github.sha }}
+            rlyleearl/jru-pulse-web-app:${{ github.ref_name }}
 
 # Parellel Execution of Jobs
   deploy-verification:
@@ -77,9 +97,9 @@ jobs:
     # Will run after both build jobs are complete
     needs: [build-python-api, build-web-app]
     
-    steps:
+    steps:  
       - name: Report Deployment Sucess
         run: |
           echo "All JRU-PULSE Docker images have been built and pushed successfully!"
-          echo "Build Tag: ${{ github.sha }}"
+          echo "Build Tag: ${{ github.ref_name }}"
           echo "Ready for deployment!"
