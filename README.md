@@ -1,4 +1,4 @@
-# JRU-PULSE: DevOps Orchestration and Containerization
+# JRU-PULSE: DevOps Containerization and Orchestration
 
 ## Overview
 This repository showcases the Infrastructure as Code (IaC) and container orchestration for JRU-PULSE, an intelligent Survey & Analytics Platform built on a polyglot microservices architecture.
