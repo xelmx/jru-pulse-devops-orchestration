@@ -49,3 +49,5 @@ Steps:
 
 
 --Please see **docker-compose.yml** for the full IaC.
+
+CI/CD Complete: Deployed and Store the repo in AWS ECS!
